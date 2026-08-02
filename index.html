@@ -225,7 +225,7 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
       <h2>Be first to get MSV</h2>
       <p>MSV launches on 14 September 2026. Leave a note and I'll tell you the moment it's ready — or just say hello.</p>
       <div class="row">
-        <a class="btn btn-light" href="#" data-email>Email MSV</a>
+        <a class="btn btn-light" href="#" data-email>info@msvplugin.com</a>
         <a class="btn btn-outline" href="#" data-yt>Subscribe on YouTube</a>
       </div>
     </div>
@@ -270,7 +270,7 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
     d.textContent=p(day);h.textContent=p(hr);m.textContent=p(mn);s.textContent=p(sc);}
   tick();setInterval(tick,1000);
 })();
-const LINKS={ email:"", youtube:"https://www.youtube.com/@MSVPlugin", instagram:"#", linkedin:"#" };
+const LINKS={ email:"info@msvplugin.com", youtube:"https://www.youtube.com/@MSVPlugin", instagram:"#", linkedin:"#" };
 const set=(sel,url)=>document.querySelectorAll(sel).forEach(a=>{if(url&&url!=="#"){a.href=url;if(sel!=='[data-email]')a.target="_blank";}});
 set('[data-yt]',LINKS.youtube);set('[data-ig]',LINKS.instagram);set('[data-li]',LINKS.linkedin);
 if(LINKS.email){document.querySelectorAll('[data-email]').forEach(function(a){a.href="mailto:"+LINKS.email;});}
