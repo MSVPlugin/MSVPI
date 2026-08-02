@@ -158,8 +158,13 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
       </div>
       <p class="cd-caption" id="cd-caption">until launch</p>
       <div class="hero-cta" style="margin-top:24px;flex-direction:column;align-items:stretch;max-width:500px;gap:12px">
-        <form class="reg-form" onsubmit="return msvRegister(event,'hero')">
-          <input type="email" name="email" id="reg-email-hero" placeholder="Enter your email to register" required>
+        <form class="reg-form" action="https://formsubmit.co/08d011db1f4eabd8892b5b344ac7d6f1" method="POST">
+          <input type="email" name="email" placeholder="Enter your email to register" required>
+          <input type="hidden" name="_subject" value="New MSV launch registration">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_autoresponse" value="Hi, and thanks for registering for MSV. You're on the launch list now, and I'll email you the moment it goes live on 14 September 2026. MSV is a set of tools that lives right in your Revit ribbon and takes care of the repetitive parts of modeling and documentation. If you have a question before launch, just reply to this email and it will reach me. Talk soon, MSV">
+          <input type="hidden" name="_next" value="https://msvplugin.com/?registered=1">
           <button class="btn btn-light" type="submit">Register</button>
         </form>
         <p class="reg-msg" id="reg-msg-hero" style="display:none"></p>
@@ -236,8 +241,13 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
     <div class="cta">
       <h2>Register for launch</h2>
       <p>MSV launches on 14 September 2026. Drop your email and I'll let you know the moment it's ready.</p>
-      <form class="reg-form" onsubmit="return msvRegister(event,'cta')" style="max-width:440px;margin:0 auto;position:relative;z-index:1">
-        <input type="email" name="email" id="reg-email-cta" placeholder="Enter your email" required>
+      <form class="reg-form" action="https://formsubmit.co/08d011db1f4eabd8892b5b344ac7d6f1" method="POST" style="max-width:440px;margin:0 auto;position:relative;z-index:1">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="hidden" name="_subject" value="New MSV launch registration">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_autoresponse" value="Hi, and thanks for registering for MSV. You're on the launch list now, and I'll email you the moment it goes live on 14 September 2026. MSV is a set of tools that lives right in your Revit ribbon and takes care of the repetitive parts of modeling and documentation. If you have a question before launch, just reply to this email and it will reach me. Talk soon, MSV">
+        <input type="hidden" name="_next" value="https://msvplugin.com/?registered=1">
         <button class="btn btn-light" type="submit">Register</button>
       </form>
       <p class="reg-msg" id="reg-msg-cta" style="display:none;position:relative;z-index:1"></p>
@@ -285,26 +295,16 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
   tick();setInterval(tick,1000);
 })();
 
-/* Registration — sends the visitor's email to info@msvplugin.com */
-function msvRegister(e,id){
-  e.preventDefault();
-  var inp=document.getElementById('reg-email-'+id);
-  var msg=document.getElementById('reg-msg-'+id);
-  var email=(inp&&inp.value||'').trim();
-  if(!email)return false;
-  if(msg){msg.style.display='block';msg.textContent='Registering…';}
-  fetch('https://formsubmit.co/ajax/08d011db1f4eabd8892b5b344ac7d6f1',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({email:email,_subject:'New MSV launch registration',_template:'table',_autoresponse:"Hi, and thanks for registering for MSV.\n\nYou're on the list. I'll email you the moment it goes live, which is set for 14 September 2026.\n\nMSV is a tools tab for Autodesk Revit that handles the repetitive parts of modeling and documentation: tagging, dimensioning, interior elevations, room callouts, sheet setup and QC.\n\nGot a question, or a feature you'd like to see before launch? Just reply to this email and it will reach me.\n\nTalk soon,\nMSV"})
-  }).then(function(r){return r.json();}).then(function(){
-    if(msg)msg.textContent="You're on the list. I'll email you the moment MSV launches.";
-    if(inp)inp.value='';
-  }).catch(function(){
-    if(msg)msg.textContent="Something went wrong. Please email info@msvplugin.com directly.";
-  });
-  return false;
-}
+/* Show thank-you after the registration redirect */
+(function(){
+  if(location.search.indexOf('registered=1')!==-1){
+    ['reg-msg-hero','reg-msg-cta'].forEach(function(id){
+      var e=document.getElementById(id);
+      if(e){e.textContent="You're on the list. I'll email you the moment MSV launches.";e.style.display='block';}
+    });
+    if(window.history&&history.replaceState){history.replaceState(null,'',location.pathname);}
+  }
+})();
 
 const LINKS={ email:"info@msvplugin.com", youtube:"https://www.youtube.com/@MSVPlugin", instagram:"#", linkedin:"#" };
 const set=(sel,url)=>document.querySelectorAll(sel).forEach(a=>{if(url&&url!=="#"){a.href=url;if(sel!=='[data-email]')a.target="_blank";}});
