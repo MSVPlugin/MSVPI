@@ -296,7 +296,7 @@ function msvRegister(e,id){
   fetch('https://formsubmit.co/ajax/08d011db1f4eabd8892b5b344ac7d6f1',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({email:email,_subject:'New MSV launch registration',_template:'table'})
+    body:JSON.stringify({email:email,_subject:'New MSV launch registration',_template:'table',_autoresponse:"Hi, and thanks for registering for MSV.\n\nYou're on the list. I'll email you the moment it goes live, which is set for 14 September 2026.\n\nMSV is a tools tab for Autodesk Revit that handles the repetitive parts of modeling and documentation: tagging, dimensioning, interior elevations, room callouts, sheet setup and QC.\n\nGot a question, or a feature you'd like to see before launch? Just reply to this email and it will reach me.\n\nTalk soon,\nMSV"})
   }).then(function(r){return r.json();}).then(function(){
     if(msg)msg.textContent="You're on the list. I'll email you the moment MSV launches.";
     if(inp)inp.value='';
