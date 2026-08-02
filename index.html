@@ -293,7 +293,7 @@ function msvRegister(e,id){
   var email=(inp&&inp.value||'').trim();
   if(!email)return false;
   if(msg){msg.style.display='block';msg.textContent='Registering…';}
-  fetch('https://formsubmit.co/ajax/info@msvplugin.com',{
+  fetch('https://formsubmit.co/ajax/08d011db1f4eabd8892b5b344ac7d6f1',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
     body:JSON.stringify({email:email,_subject:'New MSV launch registration',_template:'table'})
