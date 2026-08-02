@@ -114,6 +114,14 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
 .foot-col a:hover{color:#fff}
 .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:#6f86a8}
 @media(max-width:720px){.foot-grid{grid-template-columns:1fr 1fr}.hero-grid{grid-template-columns:1fr}.hero-visual{order:-1}.cta{padding:34px 24px}}
+
+/* REGISTER FORM */
+.reg-form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.reg-form input{flex:1 1 240px;min-width:0;padding:13px 16px;border-radius:11px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.10);color:#fff;font-size:15px;font-family:inherit}
+.reg-form input::placeholder{color:#a6bcda}
+.reg-form input:focus{outline:none;border-color:var(--cyan);background:rgba(255,255,255,.16)}
+.reg-form .btn{flex:none}
+.reg-msg{font-size:14.5px;color:#8ef0c8;margin-top:12px;font-weight:500}
 </style>
 </head>
 <body>
@@ -126,7 +134,7 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
         <a href="#features">Tools</a>
         <a href="#videos">Tutorials</a>
         <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact">Register</a>
       </div>
       <button class="menu-btn" onclick="document.querySelector('.navlinks').style.display='flex'">☰</button>
     </nav>
@@ -149,9 +157,13 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
         <div class="cd-item"><span id="cd-s">00</span><small>secs</small></div>
       </div>
       <p class="cd-caption" id="cd-caption">until launch</p>
-      <div class="hero-cta" style="margin-top:24px">
-        <a class="btn btn-light" href="#contact">Get notified at launch</a>
-        <a class="btn btn-outline" href="#" data-yt>▶ Watch on YouTube</a>
+      <div class="hero-cta" style="margin-top:24px;flex-direction:column;align-items:stretch;max-width:500px;gap:12px">
+        <form class="reg-form" onsubmit="return msvRegister(event,'hero')">
+          <input type="email" name="email" id="reg-email-hero" placeholder="Enter your email to register" required>
+          <button class="btn btn-light" type="submit">Register</button>
+        </form>
+        <p class="reg-msg" id="reg-msg-hero" style="display:none"></p>
+        <a class="btn btn-outline" href="#" data-yt style="align-self:flex-start">▶ Watch on YouTube</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -222,12 +234,14 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
 <section class="pad" id="contact" style="background:var(--alt)">
   <div class="wrap">
     <div class="cta">
-      <h2>Be first to get MSV</h2>
-      <p>MSV launches on 14 September 2026. Leave a note and I'll tell you the moment it's ready — or just say hello.</p>
-      <div class="row">
-        <a class="btn btn-light" href="#" data-email>info@msvplugin.com</a>
-        <a class="btn btn-outline" href="#" data-yt>Subscribe on YouTube</a>
-      </div>
+      <h2>Register for launch</h2>
+      <p>MSV launches on 14 September 2026. Drop your email and I'll let you know the moment it's ready.</p>
+      <form class="reg-form" onsubmit="return msvRegister(event,'cta')" style="max-width:440px;margin:0 auto;position:relative;z-index:1">
+        <input type="email" name="email" id="reg-email-cta" placeholder="Enter your email" required>
+        <button class="btn btn-light" type="submit">Register</button>
+      </form>
+      <p class="reg-msg" id="reg-msg-cta" style="display:none;position:relative;z-index:1"></p>
+      <p style="position:relative;z-index:1;color:#bccadf;font-size:14.5px;margin-top:16px">Or email <a href="mailto:info@msvplugin.com" style="color:#7fd8e0">info@msvplugin.com</a></p>
     </div>
   </div>
 </section>
@@ -270,6 +284,28 @@ footer{background:#081a33;color:#a9bcd8;padding:56px 0 34px}
     d.textContent=p(day);h.textContent=p(hr);m.textContent=p(mn);s.textContent=p(sc);}
   tick();setInterval(tick,1000);
 })();
+
+/* Registration — sends the visitor's email to info@msvplugin.com */
+function msvRegister(e,id){
+  e.preventDefault();
+  var inp=document.getElementById('reg-email-'+id);
+  var msg=document.getElementById('reg-msg-'+id);
+  var email=(inp&&inp.value||'').trim();
+  if(!email)return false;
+  if(msg){msg.style.display='block';msg.textContent='Registering…';}
+  fetch('https://formsubmit.co/ajax/info@msvplugin.com',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({email:email,_subject:'New MSV launch registration',_template:'table'})
+  }).then(function(r){return r.json();}).then(function(){
+    if(msg)msg.textContent="You're on the list. I'll email you the moment MSV launches.";
+    if(inp)inp.value='';
+  }).catch(function(){
+    if(msg)msg.textContent="Something went wrong. Please email info@msvplugin.com directly.";
+  });
+  return false;
+}
+
 const LINKS={ email:"info@msvplugin.com", youtube:"https://www.youtube.com/@MSVPlugin", instagram:"#", linkedin:"#" };
 const set=(sel,url)=>document.querySelectorAll(sel).forEach(a=>{if(url&&url!=="#"){a.href=url;if(sel!=='[data-email]')a.target="_blank";}});
 set('[data-yt]',LINKS.youtube);set('[data-ig]',LINKS.instagram);set('[data-li]',LINKS.linkedin);
