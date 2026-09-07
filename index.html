@@ -345,7 +345,14 @@ var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isInter
     if(window.grecaptcha && grecaptcha.getResponse().length===0){
       e.preventDefault();
       alert('Please complete the "I\'m not a robot" check before submitting.');
+      return;
     }
+    // The reCAPTCHA widget injects its own hidden field with a long
+    // verification token. We only check it client-side (no server to
+    // verify it against), so strip its name here — otherwise FormSubmit
+    // includes that raw token as a field in the notification email.
+    var rc=form.querySelector('[name="g-recaptcha-response"]');
+    if(rc) rc.removeAttribute('name');
   });
 })();
 </script>
