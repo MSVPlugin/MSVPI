@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSV Docs — About, Get Started &amp; Tools</title>
+<meta name="description" content="Documentation for the MSV Revit plugin: what it is, how to install it, and how each tool works.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#10B981;--accent-l:#34e2aa;--bg:#05070d;--bg2:#080c16;--muted:#9aa7c2;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--glass:rgba(255,255,255,.04);}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{background:var(--bg)}
+body{font-family:'Inter',-apple-system,'Segoe UI',sans-serif;font-weight:400;color:#fff;line-height:1.65}
+a{color:inherit;text-decoration:none}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-l)}
+code{background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:.92em;font-family:'SFMono-Regular',Consolas,monospace}
+
+/* ---------- TOP BAR ---------- */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;background:rgba(5,7,13,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;font-size:17px}
+.topbar .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.topbar .back{font-size:13.5px;color:var(--muted);font-weight:600}
+.topbar .back:hover{color:var(--accent-l)}
+.navtoggle{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--glass);border:1px solid var(--line2);cursor:pointer}
+.navtoggle span,.navtoggle span::before,.navtoggle span::after{content:"";display:block;width:16px;height:2px;background:#fff;position:relative;transition:.2s}
+.navtoggle span::before{position:absolute;top:-5px}
+.navtoggle span::after{position:absolute;top:5px}
+@media(min-width:900px){.navtoggle{display:none}}
+
+/* ---------- LAYOUT ---------- */
+.docwrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 69px)}
+@media(max-width:899px){.docwrap{grid-template-columns:1fr}}
+
+.sidebar{border-right:1px solid var(--line);padding:28px 18px;position:sticky;top:69px;align-self:start;height:calc(100vh - 69px);overflow-y:auto}
+@media(max-width:899px){
+  .sidebar{position:fixed;top:69px;left:0;right:0;bottom:0;height:auto;background:var(--bg);transform:translateX(-100%);transition:.25s;z-index:39;border-right:0}
+  .sidebar.open{transform:translateX(0)}
+}
+.navgroup{margin-bottom:24px}
+.navgroup h5{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#6b7891;margin-bottom:10px;padding:0 10px}
+.navgroup a{display:block;padding:8px 10px;border-radius:8px;font-size:14.5px;color:var(--muted);font-weight:500;margin-bottom:2px}
+.navgroup a:hover{color:#fff;background:var(--glass)}
+.navgroup a.active{color:var(--accent-l);background:rgba(16,185,129,.1);font-weight:600}
+.navgroup a .num{display:inline-block;width:22px;color:var(--accent);opacity:.6;font-family:'Space Grotesk',monospace;font-size:12px}
+
+.content{padding:48px 32px 100px;max-width:760px}
+@media(max-width:640px){.content{padding:36px 20px 80px}}
+.content section{margin-bottom:72px;scroll-margin-top:88px}
+.content h1{font-family:'Space Grotesk','Inter',sans-serif;font-size:clamp(30px,4vw,42px);font-weight:700;margin:12px 0 18px;letter-spacing:-.02em}
+.content h2{font-family:'Space Grotesk','Inter',sans-serif;font-size:22px;font-weight:700;margin:36px 0 14px;padding-top:20px;border-top:1px solid var(--line)}
+.content section h2:first-of-type{margin-top:28px}
+.content p{color:var(--muted);font-size:16px;margin-bottom:16px}
+.content p b,.content p strong{color:#fff}
+.content ul,.content ol{color:var(--muted);font-size:16px;margin:0 0 16px 22px}
+.content li{margin-bottom:8px}
+.content .lead{font-size:18px;color:#dfe6f2}
+
+.card{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:16px}
+.card h3{font-size:16px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card h3 .fnum{font-family:'Space Grotesk',monospace;font-size:12px;color:var(--accent);opacity:.7}
+.card p{margin-bottom:0;font-size:15px}
+
+.stepgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0 20px}
+@media(max-width:640px){.stepgrid{grid-template-columns:1fr}}
+.stepcard{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:22px}
+.stepicon{position:relative;width:44px;height:44px;border-radius:12px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.28);display:flex;align-items:center;justify-content:center;color:var(--accent-l);margin-bottom:14px}
+.stepicon svg{width:22px;height:22px}
+.stepnum{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#0ea371);color:#04120c;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',monospace}
+.stepcard h3{font-size:16px;margin-bottom:6px}
+.stepcard p{font-size:14.5px;color:var(--muted);margin-bottom:0}
+
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--accent-l);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);padding:5px 12px;border-radius:999px;margin-bottom:18px}
+
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:12px 22px;border-radius:12px;cursor:pointer;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#0ea371);color:#04120c;border:0;box-shadow:0 10px 28px rgba(16,185,129,.34)}.btn-primary:hover{transform:translateY(-2px)}
+
+.shot{width:100%;border-radius:10px;border:1px solid var(--line);background:#05070d;margin:14px 0}
+.shot-cap{font-size:13px;color:#6b7891;margin:-8px 0 22px;text-align:center}
+.ribbon-shot{width:100%;border-radius:8px;border:1px solid var(--line);background:#05070d;margin:16px 0}
+
+.clicklist{counter-reset:cstep;margin:0 0 22px;padding:0}
+.clicklist li{list-style:none;counter-increment:cstep;position:relative;padding-left:34px;margin-bottom:14px;color:var(--muted);font-size:16px}
+.clicklist li::before{content:counter(cstep);position:absolute;left:0;top:-1px;width:22px;height:22px;border-radius:6px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--accent-l);font-weight:700;font-size:12px;font-family:'Space Grotesk',monospace;display:flex;align-items:center;justify-content:center}
+.clicklist b{color:#fff}
+
+table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:14.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);color:var(--muted)}
+th{color:#fff;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="#top"><span class="dot"></span>MSV Docs</a>
+  <a class="back" href="https://msvplugin.com/">&larr; Back to msvplugin.com</a>
+  <button class="navtoggle" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Toggle navigation"><span></span></button>
+</div>
+
+<div class="docwrap">
+  <nav class="sidebar" id="sidebar">
+    <div class="navgroup">
+      <h5>Start here</h5>
+      <a href="#about">About MSV</a>
+      <a href="#get-started">Get Started</a>
+      <a href="#activate">Activate MSV</a>
+    </div>
+    <div class="navgroup">
+      <h5>My MSV Plugin</h5>
+      <a href="#doors-windows"><span class="num">01</span>Doors &amp; Windows</a>
+      <a href="#tags"><span class="num">02</span>Tags</a>
+      <a href="#dimensions"><span class="num">03</span>Dimensions</a>
+      <a href="#interior-elevations"><span class="num">04</span>Interior Elevations</a>
+      <a href="#room-callouts"><span class="num">05</span>Room Callouts</a>
+      <a href="#sheet-gen"><span class="num">06</span>Sheet Gen</a>
+      <a href="#qc"><span class="num">07</span>QC</a>
+    </div>
+    <div class="navgroup">
+      <h5>More</h5>
+      <a href="#supported-versions">Supported Revit Versions</a>
+      <a href="#faq">FAQ &amp; Support</a>
+    </div>
+  </nav>
+
+  <main class="content" id="top">
+
+    <section id="about">
+      <span class="eyebrow">About</span>
+      <h1>Built by an architect, for the people doing the drawings</h1>
+      <p class="lead">MSV adds one tab of tools to Autodesk Revit that automates the repetitive parts of documentation &mdash; tagging, dimensioning, interior elevations, room callouts, sheet generation and QC.</p>
+      <p>I'm Vivek. I work in architecture and BIM, and I spend most of my day in Revit. MSV started as a set of personal tools to get through the repetitive parts of documentation, and it grew into a plugin worth sharing.</p>
+      <p>The idea is simple: take the jobs that are slow and easy to get wrong, and hand them to a button. This page walks through what each tool does and how to get set up. Found a bug or want a tool added? Get in touch at <a href="mailto:info@msvplugin.com" style="color:var(--accent-l)">info@msvplugin.com</a>.</p>
+
+      <img class="ribbon-shot" src="images/ribbon-overview.png" alt="The MSV ribbon tab in Revit, showing all eight tool buttons">
+      <p class="shot-cap">Every tool on this page lives under the <b>MSV</b> tab in Revit's ribbon.</p>
+
+      <img class="shot" src="images/ui-about.png" alt="The About MSV dialog, showing version, license and contact info">
+      <p class="shot-cap">Click <b>About MSV</b> any time to check your version and license status.</p>
+    </section>
+
+    <section id="get-started">
+      <span class="eyebrow">Get Started</span>
+      <h1>Installing MSV</h1>
+      <p>MSV installs as a single setup file that detects which Revit versions you have and lets you choose which ones to add the plugin to.</p>
+
+      <div class="stepgrid">
+        <div class="stepcard">
+          <div class="stepicon"><span class="stepnum">1</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>
+          </div>
+          <h3>Download</h3>
+          <p>Get <code>MSV-Plugin-Setup.exe</code> from the link on the <a href="https://msvplugin.com/#register" style="color:var(--accent-l)">msvplugin.com</a> registration page.</p>
+        </div>
+        <div class="stepcard">
+          <div class="stepicon"><span class="stepnum">2</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>
+          </div>
+          <h3>Select components</h3>
+          <p>On the <b>Select Components</b> screen, MSV auto-detects which Revit versions (2024&ndash;2027) are installed and pre-checks each one it finds.</p>
+        </div>
+        <div class="stepcard">
+          <div class="stepicon"><span class="stepnum">3</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h3>Confirm &amp; install</h3>
+          <p>Uncheck any version you don't want the plugin added to, then continue through the wizard &mdash; no restart or admin rights needed.</p>
+        </div>
+        <div class="stepcard">
+          <div class="stepicon"><span class="stepnum">4</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="7" r=".6" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h3>Launch Revit</h3>
+          <p>Open Revit and you'll see a new <b>MSV</b> tab in the ribbon &mdash; with just <b>About MSV</b> on it until you activate the plugin.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="activate">
+      <span class="eyebrow">Activate MSV</span>
+      <h1>Unlocking the plugin on your machine</h1>
+      <p class="lead">MSV uses a simple, offline, per-machine license &mdash; there's no account to log into and no internet connection needed to activate.</p>
+      <p>Until a machine is activated, the ribbon only shows <b>About MSV</b> &mdash; the seven Project Tools stay hidden. Here's how to unlock them:</p>
+      <ol class="clicklist">
+        <li>Click <b>MSV</b> &rarr; <b>About MSV</b>.</li>
+        <li>Copy the <b>Machine ID</b> shown in the dialog and send it to MSV support.</li>
+        <li>MSV support sends back an activation code, valid for the term you purchased (e.g. 365 days for 1 year).</li>
+        <li>Paste that code into <b>Enter your activation code</b> and click <b>Activate</b>.</li>
+        <li><b>Restart Revit</b> &mdash; the Project Tools panel only appears after a restart, even though the license itself takes effect immediately.</li>
+      </ol>
+      <img class="shot" src="images/ui-activate-not-activated.png" alt="About MSV dialog in its not-activated state, showing the Machine ID and an activation code field">
+      <p class="shot-cap">The License row reads <b>Not Activated</b>, and the dialog grows two extra fields: your Machine ID (read-only, to send to support) and a box to paste the code you get back.</p>
+      <img class="shot" src="images/ui-activate-invalid.png" alt="About MSV dialog after entering a code that doesn't match, showing an error message">
+      <p class="shot-cap">A code that doesn't match this machine's ID (or has a typo) shows a plain error instead of activating &mdash; it never silently fails.</p>
+      <p>The license itself is entirely offline: the activation code has your machine's ID and an expiry date baked into it (cryptographically signed), so checking it needs no server call. Once activated, <b>About MSV</b> shows the license as <b>Activated &mdash; expires &lt;date&gt; (N days left)</b>; after that date it switches to <b>Expired</b> and the Project Tools panel disappears again until you activate a fresh code.</p>
+    </section>
+
+    <section id="doors-windows">
+      <span class="eyebrow">My MSV Plugin &middot; Tool 01</span>
+      <h1>Doors &amp; Windows</h1>
+      <p class="lead">See and manage every door and window in the model from one panel.</p>
+      <ol class="clicklist">
+        <li>Click <b>MSV</b> &rarr; <b>Doors &amp; Windows</b>.</li>
+        <li>The panel opens showing live counts for Doors and Windows &mdash; Existing, New Construction, Demolished and Total &mdash; and a full list below, filterable by <b>Level</b>, <b>Category</b> and <b>Phase</b>.</li>
+        <li>Click any row to select it, then use <b>Find in View</b>, <b>Select Existing</b>, <b>Select New</b> or <b>Select Demolished</b> to jump straight to it &mdash; or change its <b>Phase Created</b> and click <b>Apply</b>.</li>
+      </ol>
+      <img class="shot" src="images/ui-doors-windows.png" alt="Doors and Windows panel showing counts and a filterable element list">
+    </section>
+
+    <section id="tags">
+      <span class="eyebrow">My MSV Plugin &middot; Tool 02</span>
+      <h1>Tags</h1>
+      <p class="lead">Tag doors, windows and rooms across your views in one pass, not one at a time.</p>
+      <p>Clicking <b>MSV</b> &rarr; <b>Tags</b> opens the <b>MSV Tools</b> window, which has two tabs: <b>Tag Doors &amp; Windows</b> and <b>Rooms</b>. Both work the same way &mdash; set your options, check the preview table, click Apply.</p>
+
+      <h2>Tag Doors &amp; Windows tab</h2>
+      <ol class="clicklist">
+        <li>Click the <b>Category</b> dropdown and choose <b>Doors</b> or <b>Windows</b> &mdash; each category is tagged separately.</li>
+        <li>Set the <b>Scope</b> (e.g. Active view only), the <b>Orientation</b>, and any <b>Tag offset</b>.</li>
+        <li>Pick the <b>Tag family</b> from the dropdown, or <b>Load from file</b> if the family you want isn't loaded yet.</li>
+        <li>Optionally set <b>Filter by room</b> to tag only elements belonging to one room.</li>
+        <li>Check the preview table &mdash; it lists every matching element with its Level, current Room No., and the <b>Mark Preview</b> it will receive.</li>
+        <li>Click <b>Apply</b>.</li>
+      </ol>
+      <img class="shot" src="images/ui-tags-doors-open.png" alt="Tag Doors and Windows tab with category, scope and tag family options">
+      <img class="shot" src="images/ui-tags-category.png" alt="Category dropdown open, showing Doors and Windows options">
+      <p class="shot-cap">The <b>Category</b> dropdown switches which element type you're tagging.</p>
+      <img class="shot" src="images/ui-tags-doors-done.png" alt="Tags dialog after Apply, showing 4 marks set and 4 tagged for doors">
+      <p class="shot-cap">Doors: <b>"Done! 4 marks set, 4 tagged, 0 old tags removed."</b></p>
+      <img class="shot" src="images/ui-tags-windows-done.png" alt="Tags dialog after switching to Windows and Apply, showing 8 marks set and 8 tagged">
+      <p class="shot-cap">Switch Category to Windows and Apply again: <b>"Done! 8 marks set, 8 tagged, 0 old tags removed."</b></p>
+
+      <h2>Rooms tab</h2>
+      <p>This tab is for editing room names/numbers and placing room tags &mdash; it isn't the Room Callouts tool (that's a separate button, covered below).</p>
+      <ol class="clicklist">
+        <li>Click the <b>Rooms</b> tab. It lists every room, with its <b>Level</b>, <b>Room Name</b>, <b>Room No.</b>, and read-only <b>Length</b>, <b>Width</b> and <b>Area</b>.</li>
+        <li>Double-click a <b>Room Name</b> or <b>Room No.</b> cell to edit it directly in the table.</li>
+        <li>Click <b>Apply</b> to save your edits &mdash; this also updates the <b>Mark</b> on any door or window tagged to a room whose number changed, so tags never point at a stale room number.</li>
+        <li>Pick a <b>Tag family</b> and click <b>Tag Rooms</b> to place a room tag on every room in the chosen Scope.</li>
+      </ol>
+      <img class="shot" src="images/ui-tags-rooms-open.png" alt="Rooms tab listing every room with name, number, length, width and area">
+      <img class="shot" src="images/ui-tags-rooms-edited.png" alt="Rooms tab with a room name edited, Apply button now showing a pending change count">
+      <p class="shot-cap">Editing a cell enables <b>Apply (1)</b> &mdash; the number in parentheses is how many rooms have pending changes.</p>
+      <img class="shot" src="images/ui-tags-rooms-done.png" alt="Rooms tab after Tag Rooms, showing 3 room tags placed">
+      <p class="shot-cap"><b>"Done! 3 room tags placed, 0 skipped, 0 old tags removed."</b></p>
+    </section>
+
+    <section id="dimensions">
+      <span class="eyebrow">My MSV Plugin &middot; Tool 03</span>
+      <h1>Dimensions</h1>
+      <p class="lead">Draw wall and grid dimension strings, wall end to each opening to wall end.</p>
+      <p>The dialog is modeless &mdash; it stays open while you work in Revit (minimize it or press Esc to close), and only ever needs an active <b>floor plan</b> view.</p>
+      <ol class="clicklist">
+        <li>Click <b>MSV</b> &rarr; <b>Dimensions</b> to open <b>Auto Dimensions</b>.</li>
+        <li>Under <b>1. Drawing</b>, set the <b>Style</b> and <b>Where</b> (which view to read walls and rooms from &mdash; usually Active view).</li>
+        <li>Under <b>2. Outside the Building</b>, tick which layers to stack: <b>Openings</b> (doors &amp; windows), <b>Walls</b>, <b>Overall</b>, <b>Grids</b> &mdash; and set <b>Openings measure</b> to Jambs or Centrelines.</li>
+        <li>Under <b>3. Inside Rooms</b>, tick <b>Room dimensions</b> if you also want interior finish-face chains.</li>
+        <li>Under <b>4. Spacing</b>, set <b>First string</b> and <b>Gap between</b> in feet (leave both at 0 to let MSV space them automatically).</li>
+        <li>Open <b>Advanced</b> for two more controls: <b>Merge closer than</b> (witness lines closer than this distance get merged) and <b>Plan type</b> (overrides how MSV reads wall faces and shared walls off the model, if Auto-detect guesses wrong).</li>
+        <li>Click <b>Preview</b> to check without creating anything, or <b>Generate</b> to commit.</li>
+      </ol>
+      <img class="shot" src="images/ui-dimensions-open.png" alt="Auto Dimensions dialog with drawing, outside-the-building and spacing options">
+      <img class="shot" src="images/ui-dimensions-advanced.png" alt="Advanced section expanded, showing merge tolerance and plan type override">
+      <p class="shot-cap">The <b>Advanced</b> section is collapsed by default &mdash; click it to reveal the merge tolerance and plan-type override.</p>
+      <img class="shot" src="images/ui-dimensions-done.png" alt="Auto Dimensions dialog after Generate, showing dimension strings created and a detailed report">
+      <p class="shot-cap">MSV reports exactly how many strings it created, and the <b>Report</b> section (expandable, shown here open) explains the reasoning per side &mdash; including any side it skipped and why.</p>
+      <p>The red <b>Delete MSV dimensions</b> button removes every dimension this tool previously created in the view &mdash; check <b>Delete removes EVERY dimension in the view</b> under Advanced first if you want it to remove all dimensions, not just MSV's own.</p>
+    </section>
+
+    <section id="interior-elevations">
+      <span class="eyebrow">My MSV Plugin &middot; Tool 04</span>
+      <h1>Interior Elevations</h1>
+      <p class="lead">Create the four interior elevations for a room, finish face to finish face.</p>
+      <ol class="clicklist">
+        <li>Click <b>MSV</b> &rarr; <b>Interior Elevations</b>.</li>
+        <li>Click the <b>Rooms</b> dropdown and tick the room(s) you want &mdash; or click <b>All</b>.</li>
+        <li>Set the <b>Scale</b>, and tick which <b>Directions</b> you need (North / East / South / West).</li>
+        <li>Click <b>Apply</b>.</li>
+      </ol>
+      <img class="shot" src="images/ui-elevations-open.png" alt="Interior Elevations dialog with rooms dropdown, scale and direction options">
+      <img class="shot" src="images/ui-elevations-dropdown.png" alt="Rooms dropdown open, listing each room with a checkbox">
+      <p class="shot-cap">Tick individual rooms, or use the <b>All</b> / <b>None</b> shortcuts above the list.</p>
+      <img class="shot" src="images/ui-elevations-done.png" alt="Interior Elevations dialog after Apply, showing 1 room and 4 elevations created">
+      <p class="shot-cap"><b>"1 room(s): 4 elevations, 1 enlarged plan(s) created."</b> The new views appear in the Project Browser immediately.</p>
+    </section>
+
+    <section id="room-callouts">
+      <span class="eyebrow">My MSV Plugin &middot; Tool 05</span>
+      <h1>Room Callouts</h1>
+      <p class="lead">Place a callout around each room, sized to the room and named after it.</p>
+      <ol class="clicklist">
+        <li>Click <b>MSV</b> &rarr; <b>Room Callouts</b>.</li>
+        <li>Click the <b>Rooms</b> dropdown, then <b>All</b> (or tick specific rooms).</li>
+        <li><b>Draw in</b> picks which floor plan the callout markers get drawn on &mdash; it defaults to the active floor plan and its level.</li>
+        <li>Set the <b>Scale</b> for the new enlarged views, and the <b>Margin</b> in feet (how far the crop extends past the room boundary).</li>
+        <li>Leave <b>Crop to the room outline, not a rectangle</b> checked so an L-shaped or angled room gets a callout that follows its actual shape; leave <b>Skip rooms that already have a callout</b> checked to avoid duplicates on a repeat run.</li>
+        <li>Click <b>Apply</b>.</li>
+      </ol>
+      <img class="shot" src="images/ui-callouts-open.png" alt="Room Callouts dialog with rooms dropdown, scale and margin options">
+      <img class="shot" src="images/ui-callouts-all.png" alt="Rooms dropdown with All 3 rooms selected via checkboxes">
+      <p class="shot-cap">Clicking <b>All</b> ticks every room in the list at once.</p>
+      <img class="shot" src="images/ui-callouts-done.png" alt="Room Callouts dialog after Apply, showing 3 callouts created and new views in the Project Browser">
+      <p class="shot-cap"><b>"3 callout(s) created."</b> Each shows up in the Project Browser as <em>ENLARGED FLOOR PLAN @ &lt;room name&gt;</em>.</p>
+    </section>
+
+    <section id="sheet-gen">
+      <span class="eyebrow">My MSV Plugin &middot; Tool 06</span>
+      <h1>Sheet Gen</h1>
+      <p class="lead">Replicate sheets and views per trade, then find-and-replace the numbering.</p>
+      <p>Sheet Gen has two tabs: <b>Sheet Generation</b> (create a batch of sheets) and <b>Rename / Replace</b> (find-and-replace text across sheets and views project-wide).</p>
+
+      <h2>Sheet Generation tab</h2>
+      <ol class="clicklist">
+        <li>Under <b>1. Select source model</b>, leave <b>Use My Model</b> selected, or pick <b>Linked model</b> if you're generating sheets from a linked file.</li>
+        <li>Under <b>2. Select title block</b>, choose the title block type from the dropdown.</li>
+        <li>Under <b>3. How many sheets?</b>, set the count and click <b>Build table</b> to generate that many empty rows.</li>
+        <li>Fill in each row's <b>Sheet Number</b>, <b>Sheet Name</b> and <b>Discipline</b> &mdash; or speed this up with <b>Auto-number from row 1</b> (increments row 1's number down the column) or <b>Row 1 discipline to all</b> (copies row 1's discipline to every row). The <b>Discipline</b> dropdown has seven options: Architectural, Structural, Electrical, Plumbing, Mechanical, Civil, and General &mdash; each a separate entry, so a Civil sheet and a General/cover sheet are never lumped under one discipline.</li>
+        <li>Leave <b>Also create a sheet list grouped by discipline</b> checked to get a ready-made schedule alongside the sheets.</li>
+        <li>Click <b>Create Sheets</b>.</li>
+      </ol>
+      <img class="shot" src="images/ui-sheetgen-open.png" alt="Sheet Gen dialog with source model, title block and sheet count options">
+      <img class="shot" src="images/ui-sheetgen-filled.png" alt="Sheet Gen table filled with three sheet numbers, names and disciplines">
+      <p class="shot-cap">Three rows, filled in and ready to generate.</p>
+      <img class="shot" src="images/ui-sheetgen-done.png" alt="Sheet Gen dialog after Create Sheets, confirming 3 sheets created and a discipline schedule">
+      <p class="shot-cap">MSV confirms the sheet count, notes it stamped a discipline on each one, and tells you exactly how to group the Project Browser by discipline (a manual step &mdash; Revit's API can't automate browser organization).</p>
+
+      <h2>Rename / Replace tab</h2>
+      <p>A project-wide find &amp; replace across sheet numbers, sheet names, and view names &mdash; useful after generating sheets if you need to bulk-adjust wording (e.g. shortening "FLOOR PLAN" to "PLAN" everywhere at once).</p>
+      <ol class="clicklist">
+        <li>Type the text to match into <b>Find this</b>, and its replacement into <b>Replace with this</b>.</li>
+        <li>Tick which fields to search: <b>Sheet numbers</b>, <b>Sheet names</b>, <b>View names</b> &mdash; and <b>Match case</b> if the search should be case-sensitive.</li>
+        <li>Click <b>Preview</b> to list every match it would change, before touching anything.</li>
+        <li>Click <b>Apply</b> to make the changes.</li>
+      </ol>
+      <img class="shot" src="images/ui-sheetgen-rename-open.png" alt="Rename / Replace tab with find, replace and scope checkboxes">
+      <img class="shot" src="images/ui-sheetgen-rename-preview.png" alt="Preview list showing sheet names and view names that will change from FLOOR PLAN to PLAN">
+      <p class="shot-cap">Preview lists every hit across both sheets and views before you commit &mdash; here, 5 changes ready.</p>
+      <img class="shot" src="images/ui-sheetgen-rename-done.png" alt="Rename / Replace tab after Apply, showing 5 items renamed">
+      <p class="shot-cap"><b>"5 item(s) renamed."</b></p>
+    </section>
+
+    <section id="qc">
+      <span class="eyebrow">My MSV Plugin &middot; Tool 07</span>
+      <h1>QC</h1>
+      <p class="lead">Scan the documentation for issues before you issue a set.</p>
+      <ol class="clicklist">
+        <li>Click <b>MSV</b> &rarr; <b>QC</b>.</li>
+        <li>Click <b>Sheets</b> and either tick <b>Active view only</b>, or tick specific sheets to check &mdash; the sheet-tag checks below only look at views actually placed on a sheet, so a scope of one or more sheets is what to use before issuing a set.</li>
+        <li>Tick which of the 12 checks to run (see the full list below), or click <b>All</b> / <b>None</b> / <b>Invert</b> to select them faster.</li>
+        <li>Click <b>Run QC</b>.</li>
+        <li>Use the <b>Show</b> dropdown to filter the results down to one specific check.</li>
+        <li>Click any row to select that element in the model, or use <b>Open View</b> to jump to it, or <b>Select All Shown</b> to select every currently-listed element at once.</li>
+      </ol>
+      <img class="shot" src="images/ui-qc-open.png" alt="Documentation QC dialog with sheet selection and check categories">
+      <img class="shot" src="images/ui-qc-scope.png" alt="Sheets dropdown showing Active view only checkbox and a list of sheets to include">
+      <p class="shot-cap">No views are checked until you pick a scope here &mdash; a sheet, several sheets, or the active view.</p>
+      <img class="shot" src="images/ui-qc-allchecked.png" alt="All 12 QC check categories ticked">
+      <p class="shot-cap">All 12 checks ticked via the <b>All</b> shortcut &mdash; see what each one actually looks for below.</p>
+
+      <h2>What each check looks for</h2>
+      <table>
+        <tr><th>Check</th><th>Flags an issue when&hellip;</th></tr>
+        <tr><td>Doors</td><td>a door in scope has no tag referencing it.</td></tr>
+        <tr><td>Windows</td><td>a window in scope has no tag referencing it.</td></tr>
+        <tr><td>Rooms</td><td>a placed room in scope has no room tag.</td></tr>
+        <tr><td>Walls</td><td>a wall in scope has no tag referencing it.</td></tr>
+        <tr><td>Ceilings</td><td>a ceiling in scope has no tag.</td></tr>
+        <tr><td>Lighting</td><td>a lighting fixture in scope has no tag.</td></tr>
+        <tr><td>Structural</td><td>a structural framing member, column, or foundation has no tag.</td></tr>
+        <tr><td>Multi-category</td><td>a furniture, casework, or specialty equipment element has no tag.</td></tr>
+        <tr><td>Empty tags ("?")</td><td>a tag (of any category) is displaying "?" or no text &mdash; it exists, but shows nothing useful.</td></tr>
+        <tr><td>Tag conflicts</td><td>a tag visually overlaps another tag, other annotation, or the model linework beneath it &mdash; anywhere it would be unreadable on a printed sheet.</td></tr>
+        <tr><td>Room dimensions</td><td>a placed room isn't referenced by any dimension in that view.</td></tr>
+        <tr><td>Schedule blank rows</td><td>a schedule placed on one of the scoped sheets has an empty row in its body.</td></tr>
+      </table>
+
+      <img class="shot" src="images/ui-qc-done.png" alt="QC results table listing 70 issues including untagged walls and tag conflicts, with a summary line breaking down issue counts by check">
+      <p class="shot-cap">Every issue lists its <b>Check</b>, <b>Element</b>, <b>Category</b>, <b>Location</b> and <b>Severity</b>. The summary line under the table breaks the total down by check &mdash; here, 70 issues: 58 tag conflicts (over element), 4 tag conflicts (tags overlap), and 8 untagged walls.</p>
+      <img class="shot" src="images/ui-qc-filter.png" alt="Show dropdown listing each check type found, with its own issue count, so results can be filtered to just one">
+      <p class="shot-cap">The <b>Show</b> dropdown lists only the checks that actually found something, each with its own count &mdash; pick one to filter the table down to just that issue type.</p>
+    </section>
+
+    <section id="supported-versions">
+      <span class="eyebrow">Reference</span>
+      <h1>Supported Revit Versions</h1>
+      <p>One installer covers every supported year. The installer automatically picks the correct build for your exact Revit update &mdash; you don't need to know which one to choose.</p>
+      <table>
+        <tr><th>Revit Version</th><th>Status</th><th>Notes</th></tr>
+        <tr><td>2024</td><td>Supported</td><td>.NET Framework build</td></tr>
+        <tr><td>2025</td><td>Supported</td><td>Auto-detects .NET 8 vs .NET 10 builds (split at 2025.5)</td></tr>
+        <tr><td>2026</td><td>Supported</td><td>Auto-detects .NET 8 vs .NET 10 builds (split at 2026.5)</td></tr>
+        <tr><td>2027</td><td>Supported</td><td>.NET 10 build</td></tr>
+      </table>
+    </section>
+
+    <section id="faq">
+      <span class="eyebrow">More</span>
+      <h1>FAQ &amp; Support</h1>
+      <div class="card">
+        <h3>The installer shows "Unknown Publisher" &mdash; is this safe?</h3>
+        <p>Yes. The plugin isn't yet code-signed with a commercial certificate, which is what triggers that Windows warning. It doesn't affect how the plugin runs.</p>
+      </div>
+      <div class="card">
+        <h3>Which Revit versions does MSV support?</h3>
+        <p>2024 through 2027 &mdash; see the table above. The installer only offers the versions it finds installed on your machine.</p>
+      </div>
+      <div class="card">
+        <h3>Something isn't working &mdash; how do I get help?</h3>
+        <p>Email <a href="mailto:info@msvplugin.com" style="color:var(--accent-l)">info@msvplugin.com</a> with your Revit version and what happened, and I'll take a look.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:info@msvplugin.com" style="margin-top:8px">Contact support</a>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.navgroup a');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.content section'));
+  function setActive(){
+    var pos = window.scrollY + 120;
+    var current = sections[0];
+    sections.forEach(function(s){ if (s.offsetTop <= pos) current = s; });
+    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+  links.forEach(function(a){ a.addEventListener('click', function(){ document.getElementById('sidebar').classList.remove('open'); }); });
+})();
+</script>
+</body>
+</html>
