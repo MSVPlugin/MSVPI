@@ -163,14 +163,6 @@ footer{background:var(--bg2);color:#9aa7c2;padding:60px 0 34px;border-top:1px so
 .reg-download{position:relative;z-index:1;display:none;flex-direction:column;align-items:center;gap:14px;margin-top:10px}
 .reg-download.show{display:flex}
 .reg-download p{color:var(--accent-l);font-weight:600;margin:0}
-
-/* ---------- TUTORIALS / DOCS LIST ---------- */
-.doclist{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:20px}
-.doclist a{display:block;padding:10px 14px;border-radius:10px;background:var(--glass);border:1px solid var(--line);color:#dfe6f2;font-size:14px}
-.doclist a:hover{border-color:rgba(52,226,170,.4);color:var(--accent-l)}
-.doclist .doclist-head{grid-column:1 / -1;color:#6b7891;font-size:11.5px;text-transform:uppercase;letter-spacing:.14em;margin:14px 0 2px}
-.doclist .doclist-head:first-child{margin-top:0}
-@media(max-width:520px){.doclist{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -241,25 +233,8 @@ EACH</div></div>
 <section class="pad" id="videos" style="background:linear-gradient(180deg,var(--bg),var(--bg2),var(--bg))">
   <div class="wrap">
     <div class="split">
-      <div class="reveal"><span class="eyebrow">Tutorials</span><h2>Watch how each tool works</h2><p>Short, practical walkthroughs on the MSV YouTube channel: installing the plugin and using each command on a real model. New videos every week.</p><a class="btn btn-ghost" href="https://www.youtube.com/@MSVPlugin" target="_blank">▶ Visit the channel</a></div>
+      <div class="reveal"><span class="eyebrow">Tutorials</span><h2>Watch how each tool works</h2><p>Short, practical walkthroughs on the MSV YouTube channel: installing the plugin and using each command on a real model. New videos every week.</p><div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-ghost" href="https://www.youtube.com/@MSVPlugin" target="_blank">▶ Visit the channel</a><a class="btn btn-ghost" href="/docs/">Read the docs</a></div></div>
       <div class="vidcard reveal"><iframe src="https://www.youtube.com/embed/CnAfrDciovg" title="Introducing MSV Plugin" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe></div>
-    </div>
-    <div class="doclist reveal">
-      <div class="doclist-head">Start here</div>
-      <a href="/docs/#about">About MSV</a>
-      <a href="/docs/#get-started">Get Started</a>
-      <a href="/docs/#activate">Activate MSV</a>
-      <div class="doclist-head">My MSV Plugin</div>
-      <a href="/docs/#doors-windows">Doors &amp; Windows</a>
-      <a href="/docs/#tags">Tags</a>
-      <a href="/docs/#dimensions">Dimensions</a>
-      <a href="/docs/#interior-elevations">Interior Elevations</a>
-      <a href="/docs/#room-callouts">Room Callouts</a>
-      <a href="/docs/#sheet-gen">Sheet Gen</a>
-      <a href="/docs/#qc">QC</a>
-      <div class="doclist-head">Reference</div>
-      <a href="/docs/#supported-versions">Supported Revit Versions</a>
-      <a href="/docs/#faq">FAQ &amp; Support</a>
     </div>
   </div>
 </section>
