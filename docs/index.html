@@ -398,6 +398,10 @@ th{color:#fff;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
         <p>Yes. The plugin isn't yet code-signed with a commercial certificate, which is what triggers that Windows warning. It doesn't affect how the plugin runs.</p>
       </div>
       <div class="card">
+        <h3>Revit says "Application Control policy has blocked this file" and won't load MSV &mdash; what do I do?</h3>
+        <p>This is a separate, stricter Windows 11 feature called Smart App Control, which blocks unsigned software from running at all &mdash; unlike the "Unknown Publisher" warning above, there's no button to click through. If you hit this: open <strong>Windows Security &rarr; App &amp; browser control &rarr; Smart App Control</strong>, and turn it off. One thing to know before you do: this is a one-way switch &mdash; turning it back on later requires reinstalling Windows. This mainly affects newer machines with a fresh Windows 11 install; upgraded or IT-managed work PCs often don't have it enabled.</p>
+      </div>
+      <div class="card">
         <h3>Which Revit versions does MSV support?</h3>
         <p>2024 through 2027 &mdash; see the table above. The installer only offers the versions it finds installed on your machine.</p>
       </div>
